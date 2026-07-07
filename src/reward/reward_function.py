@@ -1,23 +1,40 @@
 import numpy as np
-from settings.config import LAMBDA_VOLATILITY, MU_TRANSACTION
 
-def calculate_risk_aware_reward(portfolio_value_change, portfolio_volatility, transaction_cost):
+
+def compute_reward(
+    begin_total_asset: float,
+    end_total_asset: float,
+    asset_memory: list,
+    step_transaction_cost: float,
+    lambda_volatility: float = 0.01,
+    mu_transaction: float = 0.01,
+    window: int = 20,
+):
     """
-    Calculate risk-aware reward incorporating transaction costs and volatility penalties.
-    
-    Args:
-        portfolio_value_change: Change in portfolio value from previous step
-        portfolio_volatility: Rolling volatility of the portfolio returns
-        transaction_cost: Total transaction costs incurred in the step
-        
-    Returns:
-        float: Risk-adjusted reward
+    Risk-aware reward function.
+
+    Reward =
+        Portfolio Profit
+        - lambda * rolling volatility
+        - mu * current transaction cost
     """
-    
-    base_reward = portfolio_value_change
-    volatility_penalty = LAMBDA_VOLATILITY * portfolio_volatility
-    transaction_penalty = MU_TRANSACTION * transaction_cost
-    
-    reward = base_reward - volatility_penalty - transaction_penalty
-    
-    return float(reward)
+
+    raw_profit = end_total_asset - begin_total_asset
+
+    volatility_penalty = 0.0
+
+    if len(asset_memory) >= window + 1:
+
+        returns = np.diff(asset_memory[-(window + 1):]) / np.array(
+            asset_memory[-(window + 1):-1]
+        )
+
+        volatility_penalty = np.std(returns)
+
+    reward = (
+        raw_profit
+        - lambda_volatility * volatility_penalty
+        - mu_transaction * step_transaction_cost
+    )
+
+    return reward

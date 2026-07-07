@@ -1,19 +1,44 @@
-# Virtual environment
+# Virtual environments
 .venv/
+venv/
+env/
 
 # Python cache
 __pycache__/
 *.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+
+# Environment variables
+.env
+.env.*
 
 # Jupyter
 .ipynb_checkpoints/
 
-# macOS
+# OS files
 .DS_Store
+Thumbs.db
 
-# Environment variables
-.env
+# Logs
+*.log
 
-# Training artifacts
-results/
-models/
+# Coverage
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+
+# Generated data (optional)
+stock_processed.csv
+
+# Ignore mid term file folder
+mid term file/

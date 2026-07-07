@@ -20,7 +20,16 @@ PROCESSED_DATA_PATH = PROCESSED_DATA_DIR / "stock_processed.csv"
 # =============================================================================
 
 TICKERS = [
-    "^NSEI",
+    "RELIANCE.NS",
+    "TCS.NS",
+    "INFY.NS",
+    "HDFCBANK.NS",
+    "ICICIBANK.NS",
+    "SBIN.NS",
+    "ITC.NS",
+    "LT.NS",
+    "AXISBANK.NS",
+    "HINDUNILVR.NS",
 ]
 
 START_DATE = "2014-01-01"
@@ -30,13 +39,7 @@ END_DATE   = "2025-12-31"
 # Feature Engineering
 # =============================================================================
 
-TECHNICAL_INDICATORS = [
-    "macd",
-    "boll_ub",
-    "boll_lb",
-    "rsi_30",
-    "close_30_ema"
-]
+TECHNICAL_INDICATORS = INDICATORS
 
 # =============================================================================
 # Trading Environment
